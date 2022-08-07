@@ -1,14 +1,8 @@
 import { createStore } from 'vuex'
+import TestApiState from './TestApiState'
 
 export default createStore({
-  state: {
-  },
-  getters: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
   modules: {
+    TestApiState
   }
 })

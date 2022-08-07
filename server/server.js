@@ -9,7 +9,7 @@ const PORT = process.env.PORT;
 app.use(cors())
 
 app.get("/", (req, res) => {
-	res.send("Hello from backend");
+	res.send({val: 'Hello arimura!!'});
 });
 
 app.listen(PORT, () => {
