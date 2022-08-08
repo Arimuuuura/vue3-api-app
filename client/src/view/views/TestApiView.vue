@@ -13,7 +13,6 @@ export default defineComponent({
   setup() {
     const store = useStore()
     const test = computed(() => {
-      console.log(store.state.TestApiState.val);
       return store.state.TestApiState.val
     })
 

@@ -6,11 +6,16 @@ require('dotenv').config()
 const API_SERVER = process.env.API_SERVER;
 const PORT = process.env.PORT;
 
+const getUser = require("./routes/get-user");
+
 app.use(cors())
 
 app.get("/", (req, res) => {
 	res.send({val: 'Hello arimura!!'});
 });
+
+// get user
+app.use("/", getUser);
 
 app.listen(PORT, () => {
 	console.log(`Backend server port ${PORT}... ${API_SERVER}:${PORT}`);
