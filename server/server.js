@@ -6,7 +6,6 @@ require('dotenv').config()
 const API_SERVER = process.env.API_SERVER;
 const PORT = process.env.PORT;
 
-const getUser = require("./routes/get-user");
 
 app.use(cors())
 
@@ -15,7 +14,12 @@ app.get("/", (req, res) => {
 });
 
 // get user
+const getUser = require("./routes/get-user");
 app.use("/", getUser);
+
+// get all book
+const getAllBooks = require("./routes/get-all-books");
+app.use("/", getAllBooks);
 
 app.listen(PORT, () => {
 	console.log(`Backend server port ${PORT}... ${API_SERVER}:${PORT}`);
