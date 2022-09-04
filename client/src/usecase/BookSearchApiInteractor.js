@@ -7,6 +7,7 @@ const registerCallback = callback => {
 }
 
 const fetchRequest = async () => {
+	console.log('aa');
 	for(const callback of callbackList) {
 		if(callback.fetchRequest) {
 			await callback.fetchRequest()

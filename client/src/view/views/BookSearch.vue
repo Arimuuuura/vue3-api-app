@@ -2,6 +2,8 @@
 	<div>
 		<input v-model="keyword" type="text">
 		<button @click="onClickSearch">検索</button>
+		<!-- <div>{{result[0].Item.title}}</div>
+		<div>{{result[0].Item.author}}</div> -->
 		<div>{{result}}</div>
 	</div>
 </template>

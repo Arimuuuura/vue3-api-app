@@ -2,13 +2,12 @@ import { fetchRequest, registerCallback, getSearchResult } from '@/usecase/BookS
 import store from '@/view/store/index'
 
 export const init = () => {
-	console.log('Hi');
-}
-
-const setResult = () => {
 	const bookSearchInteractorCallback = {
-		fetchResponse: ({result}) => {
-			store.commit('BookSearchState/setResult', {result})
+		fetchResponse: async ({result}) => {
+			await store.commit('BookSearchState/setResult', {result})
+		},
+		fetchRequest: async () => {
+			await store.dispatch('BookSearchState/fetch')
 		}
 	}
 
@@ -19,22 +18,22 @@ export default {
 	namespaced: true,
 	state: () => {
 		return {
-			keyword: "react",
-			result: [{}]
+			keyword: '',
+			result: {}
 		}
 	},
 	mutations: {
 		setResult(state, {result}) {
 			state.result = result
+			console.log(result);
 		},
 	},
 	actions: {
 		fetch() {
 			fetchRequest()
 		},
-		async getSearchResult(_, keyword) {
+		getSearchResult(_, keyword) {
 			getSearchResult(keyword)
-			await setResult()
 		}
 	}
 }

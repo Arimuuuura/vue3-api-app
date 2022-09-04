@@ -5,6 +5,29 @@ const URL = '/api/search'
 const HTTP_STATUS_SUCCESS = 200
 
 const bookSearchApiCallback = {
+	fetchRequest: async () => {
+		const payload = {
+			method: httpMethodType.GET,
+			url: URL,
+			baseURL: 'http://localhost:5000',
+			headers: {},
+			params: {},
+			data: {}
+		}
+
+		const {status, data} = await requestHttp(payload).catch(e => {
+			throw e
+		})
+		console.log('a');
+
+		if(status === HTTP_STATUS_SUCCESS) {
+			fetchResponse(
+				{
+					result: data.result
+				}
+			)
+		}
+	},
 	getSearchResult: async (keyword) => {
 		const payload = {
 			method: httpMethodType.GET,

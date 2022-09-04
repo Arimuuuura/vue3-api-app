@@ -6,7 +6,7 @@ require('dotenv').config()
 const API_SERVER = process.env.API_SERVER;
 const PORT = process.env.PORT;
 
-
+app.use(express.json());
 app.use(cors())
 
 app.get("/", (req, res) => {
