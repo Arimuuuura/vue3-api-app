@@ -18,14 +18,16 @@ export default {
 	namespaced: true,
 	state: () => {
 		return {
-			keyword: '',
-			result: {}
+			result: [],
+			selectedItemId: null
 		}
 	},
 	mutations: {
 		setResult(state, {result}) {
 			state.result = result
-			console.log(result);
+		},
+		setSelectedItemId(state, id) {
+			state.selectedItemId = id
 		},
 	},
 	actions: {
@@ -34,6 +36,9 @@ export default {
 		},
 		getSearchResult(_, keyword) {
 			getSearchResult(keyword)
+		},
+		setSelectedItemId({commit}, id) {
+			commit('setSelectedItemId', id)
 		}
 	}
 }

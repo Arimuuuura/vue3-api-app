@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
 import UsersView from '../views/UsersView.vue'
 import BookSearch from '../views/BookSearch.vue'
+import BookSearchDetail from '../views/BookSearchDetail.vue'
 import TestView from '../views/TestApiView.vue'
 
 const routes = [
@@ -25,6 +26,11 @@ const routes = [
     path: '/search',
     name: 'search',
     component: BookSearch
+  },
+  {
+    path: '/search-detail',
+    name: 'searchDetail',
+    component: BookSearchDetail
   },
   {
     path: '/test',

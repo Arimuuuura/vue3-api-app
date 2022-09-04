@@ -34,15 +34,20 @@ router.get('/api/search', async (req, res) => {
 	}
 
 	const formatValue = (Items) => {
-		return Items.map((item) => {
+		return Items.map((Item, index) => {
+			const item = Item.Item
 			return {
-				title: item.Item.title,
-				author: item.Item.author,
-				largeImageUrl: item.Item.largeImageUrl,
-				publisherName: item.Item.publisherName,
-				salesDate: item.Item.salesDate,
-				itemUrl: item.Item.itemUrl,
-				itemPrice: item.Item.itemPrice,
+				id: index,
+				title: item.title,
+				author: item.author,
+				largeImageUrl: item.largeImageUrl,
+				publisherName: item.publisherName,
+				salesDate: item.salesDate,
+				itemUrl: item.itemUrl,
+				itemPrice: item.itemPrice,
+				itemCaption: item.itemCaption,
+				reviewAverage: item.reviewAverage,
+				reviewCount: item.reviewCount,
 			}
 		})
 	}
@@ -51,7 +56,8 @@ router.get('/api/search', async (req, res) => {
 	  if (error) {
 		console.error("error", error);
 	  } else {
-		res.send({result: formatValue(body.Items)});
+		const result = formatValue(body.Items)
+		res.send({result: result});
 	  }
 	});
 });
