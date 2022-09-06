@@ -6,9 +6,6 @@ export const init = () => {
 		fetchResponse: async ({result}) => {
 			await store.commit('BookSearchState/setResult', {result})
 		},
-		fetchRequest: async () => {
-			await store.dispatch('BookSearchState/fetch')
-		}
 	}
 
 	registerCallback(bookSearchInteractorCallback)

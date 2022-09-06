@@ -9,7 +9,7 @@ const URL = 'https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404'
 const SEARCH_URL = `${URL}?format=json&${APP_ID}`
 
 router.get('/api/search', async (req, res) => {
-	const keyword = req.query.keyword
+	const keyword = req?.query?.keyword
 
 	const options = {
 		url: SEARCH_URL,
@@ -21,16 +21,12 @@ router.get('/api/search', async (req, res) => {
 		json: true,
 		qs: {
 			page: 1,
-			hits: 3
+			hits: 9
 		}
 	};
 
 	if(keyword) {
-		options.qs = {
-			page: 1,
-			title: keyword,
-			hits: 3
-		}
+		options.qs.title = keyword
 	}
 
 	const formatValue = (Items) => {

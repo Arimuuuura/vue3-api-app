@@ -11,6 +11,8 @@
     "axios": "^0.27.2",
     "babel-eslint": "^10.1.0",
     "core-js": "^3.8.3",
+    "sass": "^1.54.8",
+    "sass-loader": "^13.0.2",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
     "vuex": "^4.0.0"
