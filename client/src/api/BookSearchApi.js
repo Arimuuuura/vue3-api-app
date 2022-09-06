@@ -18,7 +18,6 @@ const bookSearchApiCallback = {
 		const {status, data} = await requestHttp(payload).catch(e => {
 			throw e
 		})
-		console.log('a');
 
 		if(status === HTTP_STATUS_SUCCESS) {
 			fetchResponse(

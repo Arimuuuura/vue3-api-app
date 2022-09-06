@@ -15,11 +15,15 @@ export default {
 	namespaced: true,
 	state: () => {
 		return {
+			keyword: '',
 			result: [],
 			selectedItemId: null
 		}
 	},
 	mutations: {
+		setKeyword(state, keyword) {
+			state.keyword = keyword
+		},
 		setResult(state, {result}) {
 			state.result = result
 		},
@@ -33,6 +37,9 @@ export default {
 		},
 		getSearchResult(_, keyword) {
 			getSearchResult(keyword)
+		},
+		setKeyword({commit}, keyword) {
+			commit('setKeyword', keyword)
 		},
 		setSelectedItemId({commit}, id) {
 			commit('setSelectedItemId', id)
