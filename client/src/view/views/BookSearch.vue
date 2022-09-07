@@ -70,7 +70,8 @@ export default defineComponent({
 
 		&-form {
 			margin-right: 8px;
-			padding: 0;
+			padding: 4px;
+			font-size: 16px;
 			height: 30px;
 			line-height: 30px;
 			width: 200px;
