@@ -13,6 +13,13 @@ app.get("/", (req, res) => {
 	res.send({val: 'Hello arimura!!'});
 });
 
+// auth
+const auth = require("./routes/Auth");
+app.use("/", auth);
+// access token
+const accessToken = require("./routes/get-access-token");
+app.use("/", accessToken);
+
 // get user
 const getUser = require("./routes/get-user");
 app.use("/", getUser);
