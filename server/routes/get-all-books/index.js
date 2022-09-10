@@ -4,15 +4,14 @@ const request = require("request");
 
 require('dotenv').config()
 
-const APP_ID = 'applicationId=1051466363713368918'
-const URL = 'https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404'
-const SEARCH_URL = `${URL}?format=json&${APP_ID}`
+const APP_ID = process.env.APP_ID;
+const BOOK_SEARCH_URL = process.env.BOOK_SEARCH_URL;
 
 router.get('/api/search', async (req, res) => {
 	const keyword = req?.query?.keyword
 
 	const options = {
-		url: SEARCH_URL,
+		url: BOOK_SEARCH_URL,
 		method: 'GET',
 		headers: {
 			'Content-type': 'application/json',
@@ -20,6 +19,8 @@ router.get('/api/search', async (req, res) => {
 		},
 		json: true,
 		qs: {
+			format: 'json',
+			applicationId: APP_ID,
 			page: 1,
 			hits: 9
 		}
