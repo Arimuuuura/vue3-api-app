@@ -1,45 +1,50 @@
-const express = require("express");
-const router = express.Router();
-const request = require("request");
+const request = require('request-promise');
 
-const app = express();
-const cors = require("cors");
-app.use(cors())
 
 require('dotenv').config()
 
+const APP_URL = process.env.APP_URL;
 const APP_ID = process.env.APP_ID;
-const AUTHORIZE_URL = process.env.AUTHORIZE_URL;
-const REDIRECT_URL = process.env.APP_URL;
+const SECRET_ID = process.env.SECRET_ID;
+const ACCESS_TOKEN_REQUEST_URL = process.env.ACCESS_TOKEN_REQUEST_URL;
 
-router.get('/api/favorite', async (req, res) => {
-	console.log('arimura');
-	const encodedRedirectUri = encodeURI(REDIRECT_URL);
+const getAccessToken = async (code) => {
 	const options = {
-		url: AUTHORIZE_URL,
-		method: 'GET',
-		header: {
-			'Access-Control-Allow-Origin': '*'
+		url: ACCESS_TOKEN_REQUEST_URL,
+		method: 'POST',
+		headers: {
+			'Content-type': 'application/json',
+			'User-Agent': 'request'
 		},
+		json: true,
 		qs: {
+			grant_type: 'authorization_code',
 			client_id: APP_ID,
-			response_type: 'code',
-			scope: 'rakuten_favoritebookmark_read',
-			redirect_uri: encodedRedirectUri
+			client_secret: SECRET_ID,
+			code: code,
+			redirect_uri: APP_URL,
 		}
 	};
 
-	// res.redirect('https://app.rakuten.co.jp/services/authorize?client_id=1051466363713368918&response_type=code&scope=rakuten_favoritebookmark_read&redirect_uri=http://localhost:8080/')
+	return await request(options, (error, response, body) => {
+		if (error) {
+			console.error("error", error);
+			throw Error('error...')
+		}
 
-	await request(options, (error, response, body) => {
-		// console.log(response);
-	  if (error) {
-		console.error("error", error);
-	  } else {
-		// res.send(body);
-		res.send('<a>arimura Link</a>');
-	  }
+		if(body.error) {
+			console.error("error", body.error);
+			throw Error(body.error_description)
+		}
+	}).then((body) => {
+		return {
+			access_token: body.access_token,
+			refresh_token: body.refresh_token,
+			token_type: body.token_type,
+			expires_in: body.expires_in,
+			scope: body.scope,
+		};
 	});
-});
+}
 
-module.exports = router;
+module.exports = getAccessToken;
