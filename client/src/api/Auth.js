@@ -33,6 +33,7 @@ const testApiCallback = {
 		const {status, data} = await requestHttp(payload).catch(e => {
 			throw e
 		})
+		console.log(data);
 
 		if(status === HTTP_STATUS_SUCCESS) {
 			return await fetchResponse(data.access_token)

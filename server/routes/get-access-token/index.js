@@ -12,8 +12,6 @@ const ACCESS_TOKEN_REQUEST_URL = process.env.ACCESS_TOKEN_REQUEST_URL;
 router.post('/api/get-access-token', async (req, res) => {
 	const code = req?.body?.code
 
-	console.log(req.body);
-
 	const options = {
 		url: ACCESS_TOKEN_REQUEST_URL,
 		method: 'POST',
@@ -32,6 +30,7 @@ router.post('/api/get-access-token', async (req, res) => {
 	};
 
 	await request(options, (error, response, body) => {
+		console.log(body);
 	  if (error) {
 		console.error("error", error);
 	  } else {

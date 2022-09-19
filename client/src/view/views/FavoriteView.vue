@@ -1,31 +1,21 @@
 <template>
-  {{ test }}
   <a :href='targetHref'>Link</a>
+  <button @click="onClickButton">Click</button>
+
+  <div class="favorite-bookmark">
+    <div  class="favorite-bookmark__cards">
+      <a v-for="item of favoriteItems" class="favorite-bookmark__card" :key="item.id" @click="onClickDetail(item.id)">
+        <img :src="item.mediumImageUrl" alt="">
+        <p>{{item.itemName}}</p>
+      </a>
+    </div>
+  </div>
 </template>
 
 <script>
 import { computed, defineComponent, onMounted } from "vue";
+import { useRouter } from "vue-router";
 import { useStore } from "vuex";
-import axios from "axios";
-
-const callApi = async () => {
-  const params = {
-    responseType: 'code',
-    clientId: '1024937239498592249',
-    scope: 'rakuten_favoritebookmark_read',
-    redirectUri: 'http://localhost:8080/'
-  }
-  
-  await axios.get('https://app.rakuten.co.jp/services/authorize', {params})
-  .then((res) => {
-    console.log(res);
-  })
-  .catch((err) => {
-    console.error(err);
-  })
-  .finally(() => {
-  })
-}
 
 const getCode = () => {
   const param = location.search
@@ -45,27 +35,73 @@ const getCode = () => {
 export default defineComponent({
   setup() {
     const store = useStore()
-    const test = computed(() => {
-      return store.state.FavoriteState.body
-    })
+    const router = useRouter()
 
     const REDIRECT_URL = 'http://localhost:8080/favorite'
     const encodedRedirectUri = encodeURI(REDIRECT_URL);
+    // const encodedRedirectUri = encodeURI('http://localhost:8080/');
 
     const targetHref = `https://app.rakuten.co.jp/services/authorize?client_id=1024937239498592249&response_type=code&scope=rakuten_favoritebookmark_read&redirect_uri=${encodedRedirectUri}`
 
+    const favoriteItems = computed(() => {
+      const items = store.state.FavoriteState.favoriteItems
+      return items.map((item) => {
+        return {
+          ...item,
+          itemName: item.itemName.slice(0, 40),
+        };
+      })
+    })
+
+
+
     onMounted(() => {
-      const code = getCode()
-      store.dispatch('FavoriteState/getAccessToken', {code})
+      // const code = getCode()
+      // store.dispatch('FavoriteState/getAccessToken', {code})
       // const a = await store.dispatch('FavoriteState/fetch')
       // console.log(a);
       // callApi()
     })
 
+    const onClickButton = () => {
+      const code = getCode()
+      store.dispatch('FavoriteState/getMyFavoriteBookmark',{code})
+    }
+
+    const onClickDetail = (id) => {
+			store.dispatch('FavoriteState/setSelectedItemId', id)
+			router.push('/favorite-detail');
+		}
+
     return {
-      test,
-      targetHref
+      favoriteItems,
+      targetHref,
+      onClickButton,
+      onClickDetail
     }
   },
 })
 </script>
+<style scoped lang="scss">
+  .favorite-bookmark {
+    padding: 0 16px;
+
+    &__cards {
+      width: 100%;
+      margin: 36px auto;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    &__card {
+      display: inline-block;
+      min-width: 200px;
+      width: 30%;
+      cursor: pointer;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px #ccc;
+      margin-bottom: 24px;
+    }
+  }
+</style>

@@ -14,8 +14,8 @@ app.get("/", (req, res) => {
 });
 
 // auth
-const auth = require("./routes/Auth");
-app.use("/", auth);
+// const auth = require("./routes/Auth");
+// app.use("/", auth);
 // access token
 const accessToken = require("./routes/get-access-token");
 app.use("/", accessToken);
@@ -27,6 +27,10 @@ app.use("/", getUser);
 // get all book
 const getAllBooks = require("./routes/get-all-books");
 app.use("/", getAllBooks);
+
+// get favorite bookmark
+const getFavoriteBookmark = require("./routes/get-favorite-bookmark");
+app.use("/", getFavoriteBookmark);
 
 app.listen(PORT, () => {
 	console.log(`Backend server port ${PORT}... ${API_SERVER}:${PORT}`);

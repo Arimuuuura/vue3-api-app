@@ -5,6 +5,7 @@ import UsersView from '../views/UsersView.vue'
 import BookSearch from '../views/BookSearch.vue'
 import BookSearchDetail from '../views/BookSearchDetail.vue'
 import Favorite from '../views/FavoriteView.vue'
+import FavoriteDetail from '../views/FavoriteDetail.vue'
 import TestView from '../views/TestApiView.vue'
 
 const routes = [
@@ -37,6 +38,11 @@ const routes = [
     path: '/favorite',
     name: 'favorite',
     component: Favorite
+  },
+  {
+    path: '/favorite-detail',
+    name: 'favoriteDetail',
+    component: FavoriteDetail
   },
   {
     path: '/test',
