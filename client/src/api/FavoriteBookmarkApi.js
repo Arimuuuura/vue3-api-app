@@ -6,7 +6,6 @@ const HTTP_STATUS_SUCCESS = 200
 
 const favoriteBookmarkApiCallback = {
 	fetchRequest: async (code) => {
-		// console.log('api',code);
 		const payload = {
 			method: httpMethodType.GET,
 			url: URL,

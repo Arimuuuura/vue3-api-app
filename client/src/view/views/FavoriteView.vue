@@ -1,8 +1,6 @@
 <template>
-  <a :href='targetHref'>Link</a>
-  <button @click="onClickButton">Click</button>
-
   <div class="favorite-bookmark">
+    <a :href='targetHref'>Link</a>
     <div  class="favorite-bookmark__cards">
       <a v-for="item of favoriteItems" class="favorite-bookmark__card" :key="item.id" @click="onClickDetail(item.id)">
         <img :src="item.mediumImageUrl" alt="">
@@ -39,7 +37,6 @@ export default defineComponent({
 
     const REDIRECT_URL = 'http://localhost:8080/favorite'
     const encodedRedirectUri = encodeURI(REDIRECT_URL);
-    // const encodedRedirectUri = encodeURI('http://localhost:8080/');
 
     const targetHref = `https://app.rakuten.co.jp/services/authorize?client_id=1024937239498592249&response_type=code&scope=rakuten_favoritebookmark_read&redirect_uri=${encodedRedirectUri}`
 
@@ -56,17 +53,10 @@ export default defineComponent({
 
 
     onMounted(() => {
-      // const code = getCode()
-      // store.dispatch('FavoriteState/getAccessToken', {code})
-      // const a = await store.dispatch('FavoriteState/fetch')
-      // console.log(a);
-      // callApi()
-    })
-
-    const onClickButton = () => {
       const code = getCode()
-      store.dispatch('FavoriteState/getMyFavoriteBookmark',{code})
-    }
+      if(!code) return
+      store.dispatch('FavoriteState/fetch', {code})
+    })
 
     const onClickDetail = (id) => {
 			store.dispatch('FavoriteState/setSelectedItemId', id)
@@ -76,7 +66,6 @@ export default defineComponent({
     return {
       favoriteItems,
       targetHref,
-      onClickButton,
       onClickDetail
     }
   },

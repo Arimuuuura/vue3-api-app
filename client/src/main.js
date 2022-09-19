@@ -3,7 +3,6 @@ import App from './view/App.vue'
 import router from './view/router'
 import store from './view/store'
 import {init as httpDriver} from '@/driver/HttpDriver'
-import {init as authInit} from '@/api/Auth'
 import {init as userApiInit} from '@/api/UserApi'
 import {init as bookSearchApiInit} from '@/api/BookSearchApi'
 import {init as favoriteBookmarkApiInit} from '@/api/FavoriteBookmarkApi'
@@ -13,9 +12,6 @@ import {init as FavoriteState} from '@/view/store/FavoriteState'
 
 // driver 初期化
 httpDriver()
-
-// auth 初期化
-authInit()
 
 // api 初期化
 userApiInit()
