@@ -8,6 +8,8 @@ import Favorite from '../views/FavoriteView.vue'
 import FavoriteDetail from '../views/FavoriteDetail.vue'
 import TestView from '../views/TestApiView.vue'
 
+import getCode from "@/view/authorization";
+
 const routes = [
   {
     path: '/',
@@ -54,6 +56,42 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+// ナビゲーションガード
+router.beforeEach(async (to, from, next) => {
+  // const toName = ''
+  const code = getCode()
+  console.log(to.name);
+  // console.log(code);
+  if(!code) {
+    if(to.name == 'search') {
+      const REDIRECT_URL = 'http://localhost:8080/search'
+      const encodedRedirectUri = encodeURI(REDIRECT_URL);
+      const targetHref = `https://app.rakuten.co.jp/services/authorize?client_id=1024937239498592249&response_type=code&scope=rakuten_favoritebookmark_read&redirect_uri=${encodedRedirectUri}`
+
+      window.location = targetHref
+      return
+    }
+    // if(to.name == 'searchDetail') {
+    //   console.log(to.name);
+    //   const REDIRECT_URL = 'http://localhost:8080/search-detail'
+    //   const encodedRedirectUri = encodeURI(REDIRECT_URL);
+    //   const targetHref = `https://app.rakuten.co.jp/services/authorize?client_id=1024937239498592249&response_type=code&scope=rakuten_favoritebookmark_read&redirect_uri=${encodedRedirectUri}`
+
+    //   window.location = targetHref
+    //   return
+    // }
+    if(to.name == 'favorite') {
+      const REDIRECT_URL = 'http://localhost:8080/favorite'
+      const encodedRedirectUri = encodeURI(REDIRECT_URL);
+      const targetHref = `https://app.rakuten.co.jp/services/authorize?client_id=1024937239498592249&response_type=code&scope=rakuten_favoritebookmark_read&redirect_uri=${encodedRedirectUri}`
+
+      window.location = targetHref
+      return
+    }
+  }
+  next()
 })
 
 export default router
