@@ -45,7 +45,7 @@ export default defineComponent({
 
 		const onClickDetail = (id) => {
 			store.dispatch('BookSearchState/setSelectedItemId', id)
-			router.push('/search-detail');
+			router.push('/book-search-detail');
 		}
 
 		return {
