@@ -35,10 +35,12 @@ router.get('/api/favorite-bookmark', async (req, res) => {
 			const item = Item.item
 			return {
 				id: index,
+				bookmarkId: item.bookmarkId,
 				shopName: item.shopName,
 				shopUrl: item.shopUrl,
 				itemName: item.itemName,
 				itemUrl: item.itemUrl,
+				pointRate: item.pointRate,
 				mediumImageUrl: item.mediumImageUrl,
 				reviewCount: item.reviewCount,
 				reviewUrl: item.reviewUrl,

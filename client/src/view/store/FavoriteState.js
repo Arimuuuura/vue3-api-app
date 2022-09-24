@@ -1,4 +1,4 @@
-import { fetchRequest, registerCallback } from '@/usecase/FavoriteBookmarkInteractor'
+import { fetchRequest, updateFavoriteRequest, registerCallback } from '@/usecase/FavoriteBookmarkInteractor'
 import store from '@/view/store/index'
 
 export const init = () => {
@@ -24,7 +24,7 @@ export default {
 		setState(state, body) {
 			state.body = body
 		},
-		setMyFavoriteBookmark(state, {items, summary}) {
+		setMyFavoriteBookmark(state, {items}) {
 			state.favoriteItems = items
 		},
 		setSelectedItemId(state, id) {
@@ -32,11 +32,14 @@ export default {
 		},
 	},
 	actions: {
-		fetch(_,{code}) {
-			fetchRequest(code)
+		fetch(_,{readCode}) {
+			fetchRequest(readCode)
 		},
 		setSelectedItemId({commit}, id) {
 			commit('setSelectedItemId', id)
+		},
+		updateMyFavoriteBookmark(_, {action, code, id}) {
+			updateFavoriteRequest(action, code, id)
 		}
 	}
 }

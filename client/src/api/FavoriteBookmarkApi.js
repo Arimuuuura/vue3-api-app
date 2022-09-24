@@ -28,6 +28,30 @@ const favoriteBookmarkApiCallback = {
 			)
 		}
 	},
+	updateFavoriteRequest: async (action, code, id) => {
+		const payload = {
+			method: httpMethodType.POST,
+			url: URL,
+			baseURL: 'http://localhost:5000',
+			headers: {},
+			params: {},
+			data: {action, code, id}
+		}
+
+		const {status, data} = await requestHttp(payload).catch(e => {
+			throw e
+		})
+		console.log(status, data);
+
+		// if(status === HTTP_STATUS_SUCCESS) {
+		// 	fetchResponse(
+		// 		{
+		// 			items: data.myBookmarkList,
+		// 			summary: data.summary,
+		// 		}
+		// 	)
+		// }
+	},
 }
 
 const init = () => {

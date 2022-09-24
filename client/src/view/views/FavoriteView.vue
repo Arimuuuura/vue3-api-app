@@ -1,8 +1,7 @@
 <template>
   <div class="favorite-bookmark">
-    <a :href='targetHref'>Link</a>
     <div  class="favorite-bookmark__cards">
-      <a v-for="item of favoriteItems" class="favorite-bookmark__card" :key="item.id" @click="onClickDetail(item.id)">
+      <a v-for="item of favoriteItems" class="favorite-bookmark__card" :key="item.id" @click="onClickDetail(item.bookmarkId)">
         <img :src="item.mediumImageUrl" alt="">
         <p>{{item.itemName}}</p>
       </a>
@@ -14,31 +13,12 @@
 import { computed, defineComponent, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
-
-const getCode = () => {
-  const param = location.search
-  const nextStringNumber = 1
-  const notExist = -1
-
-  if(param.indexOf('&') === notExist) {
-    if(param.indexOf('code') === notExist) return
-
-    return param.substring(param.indexOf('=') + nextStringNumber)
-  } else {
-    const codeParam = param.split('&').find((b) => b.indexOf('code') != notExist)
-    return codeParam.substring(codeParam.indexOf('=') + nextStringNumber)
-  }
-}
+import {getCode} from "@/authorization";
 
 export default defineComponent({
   setup() {
     const store = useStore()
     const router = useRouter()
-
-    const REDIRECT_URL = 'http://localhost:8080/favorite'
-    const encodedRedirectUri = encodeURI(REDIRECT_URL);
-
-    const targetHref = `https://app.rakuten.co.jp/services/authorize?client_id=1024937239498592249&response_type=code&scope=rakuten_favoritebookmark_read&redirect_uri=${encodedRedirectUri}`
 
     const favoriteItems = computed(() => {
       const items = store.state.FavoriteState.favoriteItems
@@ -50,22 +30,20 @@ export default defineComponent({
       })
     })
 
-
-
     onMounted(() => {
-      const code = getCode()
-      if(!code) return
-      store.dispatch('FavoriteState/fetch', {code})
+      const readCode = getCode()
+      store.dispatch('AuthorizationCodeState/setReadCode', readCode)
+      if(!readCode) return
+      store.dispatch('FavoriteState/fetch', {readCode})
     })
 
     const onClickDetail = (id) => {
 			store.dispatch('FavoriteState/setSelectedItemId', id)
-			router.push('/favorite-detail');
+			router.push(`/favorite-detail?bookmarkId=${id}`);
 		}
 
     return {
       favoriteItems,
-      targetHref,
       onClickDetail
     }
   },

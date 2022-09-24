@@ -13,12 +13,9 @@ app.get("/", (req, res) => {
 	res.send({val: 'Hello arimura!!'});
 });
 
-// auth
-// const auth = require("./routes/Auth");
-// app.use("/", auth);
 // access token
-const accessToken = require("./routes/get-access-token");
-app.use("/", accessToken);
+// const accessToken = require("./routes/get-access-token");
+// app.use("/", accessToken);
 
 // get user
 const getUser = require("./routes/get-user");
@@ -28,9 +25,17 @@ app.use("/", getUser);
 const getAllBooks = require("./routes/get-all-books");
 app.use("/", getAllBooks);
 
+// get products
+const getProducts = require("./routes/get-products");
+app.use("/", getProducts);
+
 // get favorite bookmark
 const getFavoriteBookmark = require("./routes/get-favorite-bookmark");
 app.use("/", getFavoriteBookmark);
+
+// put favorite bookmark
+const postFavoriteBookmark = require("./routes/put-favorite-bookmark");
+app.use("/", postFavoriteBookmark);
 
 app.listen(PORT, () => {
 	console.log(`Backend server port ${PORT}... ${API_SERVER}:${PORT}`);

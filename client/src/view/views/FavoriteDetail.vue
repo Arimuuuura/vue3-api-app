@@ -1,25 +1,27 @@
 <template>
 	<div>
-		<div class="book-detail__card">
+		<div class="favorite-detail__card">
 			<img :src="favoriteItem.mediumImageUrl" alt="">
 			<div>
-				<h3 class="book-detail__card-title">{{favoriteItem.itemName}}</h3>
-				<dl class="book-detail__card-body">
-					<dt class="book-detail__card-key">店名</dt>
-					<dd class="book-detail__card-value">{{favoriteItem.shopName}}</dd>
+				<h3 class="favorite-detail__card-title">{{favoriteItem.itemName}}</h3>
+				<dl class="favorite-detail__card-body">
+					<dt class="favorite-detail__card-key">店名</dt>
+					<dd class="favorite-detail__card-value">{{favoriteItem.shopName}}</dd>
 
-					<dt class="book-detail__card-key">レビュー平均</dt>
-					<dd class="book-detail__card-value">{{favoriteItem.reviewAverage}}</dd>
+					<dt class="favorite-detail__card-key">レビュー平均</dt>
+					<dd class="favorite-detail__card-value">{{favoriteItem.reviewAverage}}</dd>
 
-					<dt class="book-detail__card-key">レビュー件数</dt>
-					<dd class="book-detail__card-value">{{favoriteItem.reviewCount}}</dd>
+					<dt class="favorite-detail__card-key">レビュー件数</dt>
+					<dd class="favorite-detail__card-value">{{favoriteItem.reviewCount}}</dd>
 				</dl>
-				<div class="book-detail__card-footer">
-					<a :href="favoriteItem.itemUrl" class="book-detail__card-footer-link">購入ページへ</a>
+				<div class="favorite-detail__card-footer">
+					<p class="favorite-detail__card-footer-price">ポイント {{favoriteItem.pointRate}} 倍</p>
+					<button class="favorite-detail__card-footer-favorite" @click="onClickDeleteFavorite">お気に入りに登録解除</button>
+					<a :href="favoriteItem.itemUrl" class="favorite-detail__card-footer-link">購入ページへ</a>
 				</div>
 			</div>
 		</div>
-		<div class="book-detail__back-link" @click="onClickBack">戻る</div>
+		<div class="favorite-detail__back-link" @click="onClickBack">戻る</div>
 	</div>
 </template>
 
@@ -27,7 +29,6 @@
 import { computed, defineComponent} from "vue";
 import { useStore } from "vuex";
 import { useRouter } from 'vue-router';
-
 
 export default defineComponent({
 	setup() {
@@ -39,8 +40,13 @@ export default defineComponent({
 		})
 
 		const favoriteItem = computed(() => {
-			return store.state.FavoriteState.favoriteItems[selectedItemId.value]
+			return store.state.FavoriteState.favoriteItems.find(item => item.bookmarkId === selectedItemId.value)
 		})
+
+		const onClickDeleteFavorite = () => {
+			// 削除 scope 取得用のクッションページ
+			router.push('/hoge')
+		}
 
 		const onClickBack = () => {
 			router.push('/favorite')
@@ -48,6 +54,7 @@ export default defineComponent({
 
 		return {
 			favoriteItem,
+			onClickDeleteFavorite,
 			onClickBack
 		}
 	}
@@ -55,7 +62,7 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.book-detail {
+.favorite-detail {
 	&__card {
 		padding: 24px;
 		margin: 24px;
@@ -109,6 +116,19 @@ export default defineComponent({
 				border-radius: 5px;
 				color: #fff;
 				background-color: tomato;
+			}
+
+			&-favorite {
+				line-height: 24px;
+				font-size: 20px;
+				font-weight: bold;
+				box-shadow: 0 2px 5px #ccc;
+				padding: 8px;
+				border-radius: 5px;
+				color: #fff;
+				background-color: royalblue;
+				border: none;
+				cursor: pointer;
 			}
 		}
 	}

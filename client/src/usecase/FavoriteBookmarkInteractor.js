@@ -22,8 +22,17 @@ const fetchResponse = async ({items, summary}) => {
 	}
 }
 
+const updateFavoriteRequest = async (action, code, id) => {
+	for(const callback of callbackList) {
+		if(callback.updateFavoriteRequest) {
+			await callback.updateFavoriteRequest(action, code, id)
+		}
+	}
+}
+
 export {
 	registerCallback,
 	fetchRequest,
 	fetchResponse,
+	updateFavoriteRequest
 }
