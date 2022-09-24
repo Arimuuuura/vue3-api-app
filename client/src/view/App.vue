@@ -3,12 +3,23 @@
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link> |
     <router-link to="/users">Users</router-link> |
-    <router-link to="/search">Search</router-link> |
+    <router-link to="/products-search">ProductsSearch</router-link> |
+    <router-link to="/book-search">BookSearch</router-link> |
     <router-link to="/favorite">Favorite</router-link> |
     <router-link to="/test">Test</router-link>
   </nav>
   <router-view/>
 </template>
+
+<script>
+  import { defineComponent} from "vue";
+
+  export default defineComponent({
+    setup() {
+      return {}
+    }
+  })
+  </script>
 
 <style>
 #app {
