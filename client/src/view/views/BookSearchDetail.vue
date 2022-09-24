@@ -38,7 +38,6 @@ import { computed, defineComponent} from "vue";
 import { useStore } from "vuex";
 import { useRouter } from 'vue-router';
 
-
 export default defineComponent({
 	setup() {
 		const store = useStore()
@@ -53,7 +52,7 @@ export default defineComponent({
 		})
 
 		const onClickBack = () => {
-			router.push('/search')
+			router.push('/book-search')
 		}
 
 		return {
@@ -119,6 +118,19 @@ export default defineComponent({
 				border-radius: 5px;
 				color: #fff;
 				background-color: tomato;
+			}
+
+			&-favorite {
+				line-height: 24px;
+				font-size: 20px;
+				font-weight: bold;
+				box-shadow: 0 2px 5px #ccc;
+				padding: 8px;
+				border-radius: 5px;
+				color: #fff;
+				background-color: royalblue;
+				border: none;
+				cursor: pointer;
 			}
 		}
 	}

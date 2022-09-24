@@ -1,7 +1,7 @@
 import { requestHttp, httpMethodType } from "@/api/ApiAggregator";
 import { registerCallback, fetchResponse } from "@/usecase/BookSearchApiInteractor";
 
-const URL = '/api/search'
+const URL = '/api/book-search'
 const HTTP_STATUS_SUCCESS = 200
 
 const bookSearchApiCallback = {

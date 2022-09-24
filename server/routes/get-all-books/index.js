@@ -7,7 +7,7 @@ require('dotenv').config()
 const APP_ID = process.env.APP_ID;
 const BOOK_SEARCH_URL = process.env.BOOK_SEARCH_URL;
 
-router.get('/api/search', async (req, res) => {
+router.get('/api/book-search', async (req, res) => {
 	const keyword = req?.query?.keyword
 
 	const options = {
@@ -45,6 +45,7 @@ router.get('/api/search', async (req, res) => {
 				itemCaption: item.itemCaption,
 				reviewAverage: item.reviewAverage,
 				reviewCount: item.reviewCount,
+				isbn: item.isbn,
 			}
 		})
 	}
