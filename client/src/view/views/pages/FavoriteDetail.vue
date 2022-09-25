@@ -45,7 +45,7 @@ export default defineComponent({
 
 		const onClickDeleteFavorite = () => {
 			// 削除 scope 取得用のクッションページ
-			router.push('/hoge')
+			router.push('/delete-favorite')
 		}
 
 		const onClickBack = () => {

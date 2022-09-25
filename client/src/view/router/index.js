@@ -1,15 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import AboutView from '../views/AboutView.vue'
-import UsersView from '../views/UsersView.vue'
-import ProductsSearch from '../views/ProductsSearch.vue'
-import ProductsSearchDetail from '../views/ProductsSearchDetail.vue'
-import BookSearch from '../views/BookSearch.vue'
-import BookSearchDetail from '../views/BookSearchDetail.vue'
-import Favorite from '../views/FavoriteView.vue'
-import FavoriteDetail from '../views/FavoriteDetail.vue'
-import HogeView from '../views/HogeView.vue'
-import TestView from '../views/TestApiView.vue'
+import HomeView from '../views/pages/HomeView.vue'
+import AboutView from '../views/pages/AboutView.vue'
+import UsersView from '../views/pages/UsersView.vue'
+import ProductsSearch from '../views/pages/ProductsSearch.vue'
+import ProductsSearchDetail from '../views/pages/ProductsSearchDetail.vue'
+import BookSearch from '../views/pages/BookSearch.vue'
+import BookSearchDetail from '../views/pages/BookSearchDetail.vue'
+import Favorite from '../views/pages/FavoriteView.vue'
+import FavoriteDetail from '../views/pages/FavoriteDetail.vue'
+import CushionDeleteFavorite from '../views/cushion/CushionDeleteFavorite.vue'
+import TestView from '../views/pages/TestApiView.vue'
 
 import {getCode} from "@/authorization";
 
@@ -60,9 +60,9 @@ const routes = [
     component: FavoriteDetail
   },
   {
-    path: '/hoge',
-    name: 'hoge',
-    component: HogeView
+    path: '/delete-favorite',
+    name: 'deleteFavorite',
+    component: CushionDeleteFavorite
   },
   {
     path: '/test',
@@ -106,13 +106,13 @@ router.beforeEach(async (to, from, next) => {
   // お気に入り画面
   if(to.name == 'favorite') {
     if (code) {
-      if(from.name == 'hoge') {
-        const REDIRECT_URL = 'http://localhost:8080/favorite'
-        const encodedRedirectUri = encodeURI(REDIRECT_URL);
-        const targetHref = makeTargetHref('rakuten_favoritebookmark_read', encodedRedirectUri)
+      // if(from.name == 'deleteFavorite') {
+      //   const REDIRECT_URL = 'http://localhost:8080/favorite'
+      //   const encodedRedirectUri = encodeURI(REDIRECT_URL);
+      //   const targetHref = makeTargetHref('rakuten_favoritebookmark_read', encodedRedirectUri)
 
-        window.location = targetHref
-      }
+      //   window.location = targetHref
+      // }
 
       next()
       return
@@ -130,13 +130,13 @@ router.beforeEach(async (to, from, next) => {
   }
 
   // お気に入り削除時のクッションページ
-  if(to.name == 'hoge') {
+  if(to.name == 'deleteFavorite') {
     if (code) {
       next()
       return
     }
     bookmarkId = from.query.bookmarkId
-    const REDIRECT_URL = `http://localhost:8080/hoge?bookmarkId=${bookmarkId}`
+    const REDIRECT_URL = `http://localhost:8080/delete-favorite?bookmarkId=${bookmarkId}`
     const encodedRedirectUri = encodeURI(REDIRECT_URL);
     const targetHref = makeTargetHref('rakuten_favoritebookmark_update', encodedRedirectUri)
 

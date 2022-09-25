@@ -24,7 +24,7 @@ export default defineComponent({
 				store.dispatch('AuthorizationCodeState/setUpdateCode', updateCode)
 				store.dispatch('FavoriteState/updateMyFavoriteBookmark', {action: 'delete', code: updateCode, id: bookmarkId})
         setTimeout(() => {
-          router.push('/favorite')
+          router.push('/')
         }, 2000)
 			}
 		})
