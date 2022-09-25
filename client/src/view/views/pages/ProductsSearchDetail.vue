@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { computed, defineComponent} from "vue";
+import { computed, defineComponent, ref, watch} from "vue";
 import { useStore } from "vuex";
 import { useRouter } from 'vue-router';
 
@@ -37,6 +37,7 @@ export default defineComponent({
 	setup() {
 		const store = useStore()
 		const router = useRouter()
+		const message = ref('')
 
 		const selectedItemId = computed(() => {
 			return store.state.ProductsSearchState.selectedItemId
@@ -50,10 +51,24 @@ export default defineComponent({
 			return store.state.AuthorizationCodeState.updateCode
 		})
 
+		const updatedResponse = computed(() => {
+			return store.state.FavoriteState.updatedResponse
+		})
+
+		watch(() => updatedResponse.value, (res) => {
+				if(res) {
+					message.value = '登録に成功しました。'
+				}
+				if(message.value) {
+					console.log(message.value);
+				}
+			}
+		)
+
 		const onClickAddFavorite = () => {
 			const itemCode = result.value.itemCode
-			console.log({code: code.value, id: itemCode});
 			store.dispatch('FavoriteState/updateMyFavoriteBookmark', {action: 'add', code: code.value, id: itemCode})
+
 		}
 
 		const onClickBack = () => {

@@ -1,5 +1,5 @@
 import { requestHttp, httpMethodType } from "@/api/ApiAggregator";
-import { registerCallback, fetchResponse } from "@/usecase/FavoriteBookmarkInteractor";
+import { registerCallback, fetchResponse, updateResponse } from "@/usecase/FavoriteBookmarkInteractor";
 
 const URL = '/api/favorite-bookmark'
 const HTTP_STATUS_SUCCESS = 200
@@ -41,16 +41,14 @@ const favoriteBookmarkApiCallback = {
 		const {status, data} = await requestHttp(payload).catch(e => {
 			throw e
 		})
-		console.log(status, data);
 
-		// if(status === HTTP_STATUS_SUCCESS) {
-		// 	fetchResponse(
-		// 		{
-		// 			items: data.myBookmarkList,
-		// 			summary: data.summary,
-		// 		}
-		// 	)
-		// }
+		if(status === HTTP_STATUS_SUCCESS) {
+			updateResponse(
+				{
+					response: 'success'
+				}
+			)
+		}
 	},
 }
 

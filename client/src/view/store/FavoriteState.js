@@ -5,7 +5,12 @@ export const init = () => {
 	const favoriteBookmarkInteractorCallback = {
 		fetchResponse: async ({items, summary}) => {
 			store.commit('FavoriteState/setMyFavoriteBookmark', {items, summary})
-		}
+		},
+		updateResponse: async ({response}) => {
+			console.log('res');
+			store.commit('FavoriteState/setUpdatedResponse', {response})
+		},
+
 	}
 
 	registerCallback(favoriteBookmarkInteractorCallback)
@@ -17,7 +22,8 @@ export default {
 		return {
 			body: 'initial',
 			favoriteItems: [],
-			selectedItemId: null
+			selectedItemId: null,
+			updatedResponse: ''
 		}
 	},
 	mutations: {
@@ -29,6 +35,9 @@ export default {
 		},
 		setSelectedItemId(state, id) {
 			state.selectedItemId = id
+		},
+		setUpdatedResponse(state, {response}) {
+			state.updatedResponse = response
 		},
 	},
 	actions: {
