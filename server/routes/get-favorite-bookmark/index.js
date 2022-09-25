@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const request = require("request");
 const getAccessToken = require("../Auth");
-
 require('dotenv').config()
 
 const FAVORITE_BOOKMARK_URL = process.env.FAVORITE_BOOKMARK_URL;

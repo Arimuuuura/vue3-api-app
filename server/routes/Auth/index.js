@@ -1,6 +1,4 @@
 const request = require('request-promise');
-
-
 require('dotenv').config()
 
 const APP_URL = process.env.APP_URL;
@@ -9,7 +7,6 @@ const SECRET_ID = process.env.SECRET_ID;
 const ACCESS_TOKEN_REQUEST_URL = process.env.ACCESS_TOKEN_REQUEST_URL;
 
 const getAccessToken = async (code) => {
-	console.log('token', code);
 	const options = {
 		url: ACCESS_TOKEN_REQUEST_URL,
 		method: 'POST',

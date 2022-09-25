@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const request = require("request");
-
 require('dotenv').config()
 
 const APP_ID = process.env.APP_ID;
