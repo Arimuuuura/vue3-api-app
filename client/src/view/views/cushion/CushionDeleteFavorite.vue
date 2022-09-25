@@ -1,11 +1,11 @@
 <template>
 <div>
-  お気に入りから削除しています。
+  {{message}}
 </div>
 </template>
 
 <script>
-import { defineComponent, onMounted } from "vue";
+import { computed, defineComponent, onMounted, ref, watch } from "vue";
 import { useRouter } from 'vue-router';
 import { useStore } from "vuex";
 import {getCode, getBookmarkId} from "@/authorization";
@@ -15,6 +15,7 @@ export default defineComponent({
   setup() {
     const store = useStore()
     const router = useRouter()
+    const message = ref('登録解除処理中...')
 
     onMounted(() => {
 			const updateCode = getCode()
@@ -23,13 +24,30 @@ export default defineComponent({
 			if(updateCode) {
 				store.dispatch('AuthorizationCodeState/setUpdateCode', updateCode)
 				store.dispatch('FavoriteState/updateMyFavoriteBookmark', {action: 'delete', code: updateCode, id: bookmarkId})
-        setTimeout(() => {
-          router.push('/')
-        }, 2000)
 			}
+      message.value = '登録解除処理中...'
 		})
 
-    return {}
+    const updatedResponse = computed(() => {
+			return store.state.FavoriteState.updatedResponse
+		})
+
+		watch(() => updatedResponse.value, (res) => {
+				if(res) {
+					message.value = 'お気に入り登録を解除しました。'
+          setTimeout(() => {
+            router.push('/')
+          }, 2000)
+				}
+				if(message.value) {
+					console.log(message.value);
+				}
+			}
+		)
+
+    return {
+      message
+    }
   },
 })
 </script>
