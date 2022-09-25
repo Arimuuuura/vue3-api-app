@@ -82,7 +82,7 @@ const makeTargetHref = (scope, encodedRedirectUri) => {
 
 // ナビゲーションガード
 router.beforeEach(async (to, from, next) => {
-  const code = getCode()
+  const code = getCode(to.fullPath)
   let bookmarkId = ''
 
   // 商品検索画面

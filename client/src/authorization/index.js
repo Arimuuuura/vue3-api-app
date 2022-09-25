@@ -1,5 +1,5 @@
-const getCode = () => {
-	const param = location.search
+const getCode = (name = '') => {
+	const param = name || location.search
 	const nextStringNumber = 1
 	const notExist = -1
 
