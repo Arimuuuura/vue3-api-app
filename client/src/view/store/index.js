@@ -5,6 +5,7 @@ import ProductsSearchState from './ProductsSearchState'
 import BookSearchState from './BookSearchState'
 import FavoriteState from './FavoriteState'
 import AuthorizationCodeState from './AuthorizationCodeState'
+import ShowModalState from './ShowModalState'
 
 export default createStore({
   modules: {
@@ -13,6 +14,7 @@ export default createStore({
     ProductsSearchState,
     BookSearchState,
     FavoriteState,
-    AuthorizationCodeState
+    AuthorizationCodeState,
+    ShowModalState
   }
 })

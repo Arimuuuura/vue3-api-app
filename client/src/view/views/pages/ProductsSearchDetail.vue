@@ -25,6 +25,7 @@
 			</div>
 		</div>
 		<div class="products-detail__back-link" @click="onClickBack">戻る</div>
+		<ModalWindowVue @click="onClickClose" v-show="isShowModal" :content="message" />
 	</div>
 </template>
 
@@ -32,8 +33,12 @@
 import { computed, defineComponent, ref, watch} from "vue";
 import { useStore } from "vuex";
 import { useRouter } from 'vue-router';
+import ModalWindowVue from "@/view/views/components/ModalWindow.vue";
 
 export default defineComponent({
+	components: {
+		ModalWindowVue
+	},
 	setup() {
 		const store = useStore()
 		const router = useRouter()
@@ -51,16 +56,18 @@ export default defineComponent({
 			return store.state.AuthorizationCodeState.updateCode
 		})
 
+		const isShowModal = computed(() => {
+			return store.state.ShowModalState.isShow
+		})
+
 		const updatedResponse = computed(() => {
 			return store.state.FavoriteState.updatedResponse
 		})
 
 		watch(() => updatedResponse.value, (res) => {
-				if(res) {
-					message.value = '登録に成功しました。'
-				}
-				if(message.value) {
-					console.log(message.value);
+				if(res == 'success') {
+					message.value = 'お気に入り登録に成功しました。'
+					store.dispatch('ShowModalState/setIsShow', true)
 				}
 			}
 		)
@@ -75,10 +82,18 @@ export default defineComponent({
 			router.push('/products-search')
 		}
 
+		const onClickClose = () => {
+			store.dispatch('ShowModalState/setIsShow', false)
+		}
+
 		return {
+			ModalWindowVue,
 			result,
+			message,
 			onClickAddFavorite,
-			onClickBack
+			onClickBack,
+			isShowModal,
+			onClickClose
 		}
 	}
 })
