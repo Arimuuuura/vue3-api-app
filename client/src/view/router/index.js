@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import {createRouter, createWebHistory} from 'vue-router'
 import HomeView from '../views/pages/HomeView.vue'
 import AboutView from '../views/pages/AboutView.vue'
 import UsersView from '../views/pages/UsersView.vue'
@@ -11,69 +11,69 @@ import FavoriteDetail from '../views/pages/FavoriteDetail.vue'
 import CushionDeleteFavorite from '../views/cushion/CushionDeleteFavorite.vue'
 import TestView from '../views/pages/TestApiView.vue'
 
-import {getCode} from "@/authorization";
+import {getCode} from '@/authorization'
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: HomeView,
   },
   {
     path: '/about',
     name: 'about',
-    component: AboutView
+    component: AboutView,
   },
   {
     path: '/users',
     name: 'users',
-    component: UsersView
+    component: UsersView,
   },
   {
     path: '/products-search',
     name: 'productsSearch',
-    component: ProductsSearch
+    component: ProductsSearch,
   },
   {
     path: '/products-search-detail',
     name: 'productsSearchDetail',
-    component: ProductsSearchDetail
+    component: ProductsSearchDetail,
   },
   {
     path: '/book-search',
     name: 'bookSearch',
-    component: BookSearch
+    component: BookSearch,
   },
   {
     path: '/book-search-detail',
     name: 'bookSearchDetail',
-    component: BookSearchDetail
+    component: BookSearchDetail,
   },
   {
     path: '/favorite',
     name: 'favorite',
-    component: Favorite
+    component: Favorite,
   },
   {
     path: '/favorite-detail',
     name: 'favoriteDetail',
-    component: FavoriteDetail
+    component: FavoriteDetail,
   },
   {
     path: '/delete-favorite',
     name: 'deleteFavorite',
-    component: CushionDeleteFavorite
+    component: CushionDeleteFavorite,
   },
   {
     path: '/test',
     name: 'test',
-    component: TestView
-  }
+    component: TestView,
+  },
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
+  routes,
 })
 
 const makeTargetHref = (scope, encodedRedirectUri) => {
@@ -86,25 +86,28 @@ router.beforeEach(async (to, from, next) => {
   let bookmarkId = ''
 
   // 商品検索画面
-  if(to.name == 'productsSearch') {
+  if (to.name == 'productsSearch') {
     if (code) {
       next()
       return
     }
-    if(from.name == 'productsSearchDetail') {
+    if (from.name == 'productsSearchDetail') {
       next()
       return
     }
     const REDIRECT_URL = 'http://localhost:8080/products-search'
-    const encodedRedirectUri = encodeURI(REDIRECT_URL);
-    const targetHref = makeTargetHref('rakuten_favoritebookmark_update', encodedRedirectUri)
+    const encodedRedirectUri = encodeURI(REDIRECT_URL)
+    const targetHref = makeTargetHref(
+      'rakuten_favoritebookmark_update',
+      encodedRedirectUri
+    )
 
     window.location = targetHref
     return
   }
 
   // お気に入り画面
-  if(to.name == 'favorite') {
+  if (to.name == 'favorite') {
     if (code) {
       // if(from.name == 'deleteFavorite') {
       //   const REDIRECT_URL = 'http://localhost:8080/favorite'
@@ -117,28 +120,34 @@ router.beforeEach(async (to, from, next) => {
       next()
       return
     }
-    if(from.name == 'favoriteDetail') {
+    if (from.name == 'favoriteDetail') {
       next()
       return
     }
     const REDIRECT_URL = 'http://localhost:8080/favorite'
-    const encodedRedirectUri = encodeURI(REDIRECT_URL);
-    const targetHref = makeTargetHref('rakuten_favoritebookmark_read', encodedRedirectUri)
+    const encodedRedirectUri = encodeURI(REDIRECT_URL)
+    const targetHref = makeTargetHref(
+      'rakuten_favoritebookmark_read',
+      encodedRedirectUri
+    )
 
     window.location = targetHref
     return
   }
 
   // お気に入り削除時のクッションページ
-  if(to.name == 'deleteFavorite') {
+  if (to.name == 'deleteFavorite') {
     if (code) {
       next()
       return
     }
     bookmarkId = from.query.bookmarkId
     const REDIRECT_URL = `http://localhost:8080/delete-favorite?bookmarkId=${bookmarkId}`
-    const encodedRedirectUri = encodeURI(REDIRECT_URL);
-    const targetHref = makeTargetHref('rakuten_favoritebookmark_update', encodedRedirectUri)
+    const encodedRedirectUri = encodeURI(REDIRECT_URL)
+    const targetHref = makeTargetHref(
+      'rakuten_favoritebookmark_update',
+      encodedRedirectUri
+    )
 
     window.location = targetHref
     return

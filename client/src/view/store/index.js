@@ -1,4 +1,4 @@
-import { createStore } from 'vuex'
+import {createStore} from 'vuex'
 import TestApiState from './TestApiState'
 import UserApiState from './UserApiState'
 import ProductsSearchState from './ProductsSearchState'
@@ -15,6 +15,6 @@ export default createStore({
     BookSearchState,
     FavoriteState,
     AuthorizationCodeState,
-    ShowModalState
-  }
+    ShowModalState,
+  },
 })

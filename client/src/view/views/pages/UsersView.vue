@@ -1,18 +1,18 @@
 <template>
-<div>
-  user
-  <div v-for="user in users" :key="user.id">
-    <p>{{ user.id }}</p>
-    <p>{{ user.name }}</p>
-    <p>{{ user.age }}</p>
-    <p>{{ user.address }}</p>
+  <div>
+    user
+    <div v-for="user in users" :key="user.id">
+      <p>{{ user.id }}</p>
+      <p>{{ user.name }}</p>
+      <p>{{ user.age }}</p>
+      <p>{{ user.address }}</p>
+    </div>
   </div>
-</div>
 </template>
 
 <script>
-import { computed, defineComponent, onMounted } from "vue";
-import { useStore } from "vuex";
+import {computed, defineComponent, onMounted} from 'vue'
+import {useStore} from 'vuex'
 
 export default defineComponent({
   setup() {
@@ -26,7 +26,7 @@ export default defineComponent({
     })
 
     return {
-      users
+      users,
     }
   },
 })

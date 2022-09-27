@@ -1,25 +1,31 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link> |
-    <router-link to="/users">Users</router-link> |
-    <router-link to="/products-search">ProductsSearch</router-link> |
-    <router-link to="/book-search">BookSearch</router-link> |
-    <router-link to="/favorite">Favorite</router-link> |
+    <router-link to="/">Home</router-link>
+    |
+    <router-link to="/about">About</router-link>
+    |
+    <router-link to="/users">Users</router-link>
+    |
+    <router-link to="/products-search">ProductsSearch</router-link>
+    |
+    <router-link to="/book-search">BookSearch</router-link>
+    |
+    <router-link to="/favorite">Favorite</router-link>
+    |
     <router-link to="/test">Test</router-link>
   </nav>
-  <router-view/>
+  <router-view />
 </template>
 
 <script>
-  import { defineComponent} from "vue";
+import {defineComponent} from 'vue'
 
-  export default defineComponent({
-    setup() {
-      return {}
-    }
-  })
-  </script>
+export default defineComponent({
+  setup() {
+    return {}
+  },
+})
+</script>
 
 <style>
 #app {

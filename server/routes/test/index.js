@@ -1,5 +1,5 @@
 const test = () => {
-	return 'test message'
+  return 'test message'
 }
 
-module.exports = test;
+module.exports = test

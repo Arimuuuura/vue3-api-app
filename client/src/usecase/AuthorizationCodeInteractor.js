@@ -1,29 +1,25 @@
 const callbackList = []
 
-const registerCallback = callback => {
-	if(!callbackList.includes(callback)) {
-		callbackList.push(callback)
-	}
+const registerCallback = (callback) => {
+  if (!callbackList.includes(callback)) {
+    callbackList.push(callback)
+  }
 }
 
 const fetchRequest = async () => {
-	for(const callback of callbackList) {
-		if(callback.fetchRequest) {
-			await callback.fetchRequest()
-		}
-	}
+  for (const callback of callbackList) {
+    if (callback.fetchRequest) {
+      await callback.fetchRequest()
+    }
+  }
 }
 
 const fetchResponse = async ({result}) => {
-	for(const callback of callbackList) {
-		if(callback.fetchResponse) {
-			await callback.fetchResponse({result})
-		}
-	}
+  for (const callback of callbackList) {
+    if (callback.fetchResponse) {
+      await callback.fetchResponse({result})
+    }
+  }
 }
 
-export {
-	registerCallback,
-	fetchRequest,
-	fetchResponse
-}
+export {registerCallback, fetchRequest, fetchResponse}

@@ -1,13 +1,13 @@
 <template>
-<div>
-  Test Api
-  <p>{{ test }}</p>
-</div>
+  <div>
+    Test Api
+    <p>{{ test }}</p>
+  </div>
 </template>
 
 <script>
-import { computed, defineComponent, onMounted } from "vue";
-import { useStore } from "vuex";
+import {computed, defineComponent, onMounted} from 'vue'
+import {useStore} from 'vuex'
 
 export default defineComponent({
   setup() {
@@ -21,7 +21,7 @@ export default defineComponent({
     })
 
     return {
-      test
+      test,
     }
   },
 })
