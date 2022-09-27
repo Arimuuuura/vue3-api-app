@@ -1,9 +1,6 @@
 <template>
 	<div class="products-search">
-		<div class="products-search__input-area">
-			<input class="products-search__input-form" v-model="inputValue" type="text" placeholder="キーワードを入力">
-			<div class="products-search__input-button" @click="onClickSearch">検索</div>
-		</div>
+		<InputForm @change="inputKeyword" :enteredKeyword="enteredKeyword" @onClickSearch="onClickSearch" />
 		<div  class="products-search__cards">
 			<a v-for="item of result" class="products-search__card" :key="item.id" @click="onClickDetail(item.id)">
 				<img :src="item.mediumImageUrls" alt="">
@@ -19,10 +16,14 @@ import { computed, defineComponent, ref, onMounted } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from 'vue-router';
 import {getCode} from "@/authorization";
+import InputForm from '@/view/views/components/InputForm.vue';
 
 export default defineComponent({
+	components: {
+		InputForm
+	},
 	setup() {
-		const inputValue = ref("")
+		const enteredKeyword = ref("")
 		const store = useStore()
 		const router = useRouter()
 
@@ -42,8 +43,8 @@ export default defineComponent({
 		})
 
 		const onClickSearch = () => {
-			store.dispatch('ProductsSearchState/getSearchResult', inputValue.value)
-			store.dispatch('ProductsSearchState/setKeyword', inputValue.value)
+			store.dispatch('ProductsSearchState/getSearchResult', enteredKeyword.value)
+			store.dispatch('ProductsSearchState/setKeyword', enteredKeyword.value)
 		}
 
 		const onClickDetail = (id) => {
@@ -51,11 +52,17 @@ export default defineComponent({
 			router.push('/products-search-detail');
 		}
 
+		const inputKeyword = (e) => {
+			enteredKeyword.value = e.target.value
+		}
+
 		return {
-			inputValue,
+			enteredKeyword,
 			onClickSearch,
 			onClickDetail,
-			result
+			result,
+			InputForm,
+			inputKeyword
 		}
 	}
 })

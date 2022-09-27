@@ -9,8 +9,6 @@
 
 <script>
 import { defineComponent } from "vue";
-import { useStore } from "vuex";
-import { useRouter } from 'vue-router';
 
 export default defineComponent({
 	props: {
@@ -21,9 +19,6 @@ export default defineComponent({
 		}
 	},
 	setup() {
-		const store = useStore()
-		const router = useRouter()
-
 		return {}
 	}
 })
