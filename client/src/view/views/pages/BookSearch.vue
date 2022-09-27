@@ -2,11 +2,7 @@
 	<div class="book-search">
 		<InputForm @change="inputKeyword" :enteredKeyword="enteredKeyword" @onClickSearch="onClickSearch" />
 		<div  class="book-search__cards">
-			<a v-for="item of result" class="book-search__card" :key="item.id" @click="onClickDetail(item.id)">
-				<img :src="item.largeImageUrl" alt="">
-				<p>{{item.title}}</p>
-				<p>¥{{item.itemPrice.toLocaleString()}} (税込)</p>
-			</a>
+			<ProductCard v-for="item of result" :key="item.id" :item="item" @onClickDetail="onClickDetail(item.id)" />
 		</div>
 	</div>
 </template>
@@ -16,10 +12,12 @@ import { computed, defineComponent, ref, onMounted } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from 'vue-router';
 import InputForm from '@/view/views/components/InputForm.vue';
+import ProductCard from '@/view/views/components/ProductCard.vue';
 
 export default defineComponent({
 	components: {
-		InputForm
+		InputForm,
+		ProductCard
 	},
 	setup() {
 		const enteredKeyword = ref("")
@@ -59,7 +57,8 @@ export default defineComponent({
 			onClickDetail,
 			result,
 			InputForm,
-			inputKeyword
+			inputKeyword,
+			ProductCard
 		}
 	}
 })
@@ -69,50 +68,12 @@ export default defineComponent({
 .book-search {
 	padding: 0 16px;
 
-	&__input {
-		&-area {
-			display: flex;
-			justify-content:flex-end;
-		}
-
-		&-form {
-			margin-right: 8px;
-			padding: 4px;
-			font-size: 16px;
-			height: 30px;
-			line-height: 30px;
-			width: 200px;
-			border-radius: 5px;
-			border: 1px solid #999;
-		}
-
-		&-button {
-			height: 30px;
-			line-height: 30px;
-			width: 80px;
-			border: 1px solid #999;
-			border-radius: 5px;
-			background-color: skyblue;
-			cursor: pointer;
-		}
-	}
-
 	&__cards {
 		width: 100%;
 		margin: 36px auto;
 		display: flex;
 		justify-content: space-between;
 		flex-wrap: wrap;
-	}
-
-	&__card {
-		display: inline-block;
-		min-width: 200px;
-		width: 30%;
-		cursor: pointer;
-		border-radius: 10px;
-		box-shadow: 0 2px 5px #ccc;
-		margin-bottom: 24px;
 	}
 }
 </style>

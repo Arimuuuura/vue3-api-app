@@ -34,9 +34,9 @@ router.get('/api/book-search', async (req, res) => {
 			const item = Item.Item
 			return {
 				id: index,
-				title: item.title,
+				itemName: item.title,
 				author: item.author,
-				largeImageUrl: item.largeImageUrl,
+				imageUrl: item.largeImageUrl,
 				publisherName: item.publisherName,
 				salesDate: item.salesDate,
 				itemUrl: item.itemUrl,

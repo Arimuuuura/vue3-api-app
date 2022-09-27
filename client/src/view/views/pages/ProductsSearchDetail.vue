@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="products-detail__card">
-			<img class="products-detail__card-img" :src="result.mediumImageUrls" alt="">
+			<img class="products-detail__card-img" :src="result.imageUrl" alt="">
 			<div>
 				<h3 class="products-detail__card-title">{{result.itemName}}</h3>
 				<dl class="products-detail__card-body">

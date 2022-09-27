@@ -48,7 +48,7 @@ router.get('/api/product-search', async (req, res) => {
 			}
 
 			if(item.imageFlag) {
-				result.mediumImageUrls = item.smallImageUrls[0].imageUrl
+				result.imageUrl = item.smallImageUrls[0].imageUrl
 			}
 
 			return result

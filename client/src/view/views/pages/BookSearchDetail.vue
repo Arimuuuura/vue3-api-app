@@ -1,9 +1,9 @@
 <template>
 	<div>
 		<div class="book-detail__card">
-			<img :src="result.largeImageUrl" alt="">
+			<img :src="result.imageUrl" alt="">
 			<div>
-				<h3 class="book-detail__card-title">{{result.title}}</h3>
+				<h3 class="book-detail__card-title">{{result.itemName}}</h3>
 				<dl class="book-detail__card-body">
 					<dt class="book-detail__card-key">著者</dt>
 					<dd class="book-detail__card-value">{{result.author}}</dd>

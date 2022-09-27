@@ -40,7 +40,7 @@ router.get('/api/favorite-bookmark', async (req, res) => {
 				itemName: item.itemName,
 				itemUrl: item.itemUrl,
 				pointRate: item.pointRate,
-				mediumImageUrl: item.mediumImageUrl,
+				imageUrl: item.mediumImageUrl,
 				reviewCount: item.reviewCount,
 				reviewUrl: item.reviewUrl,
 				reviewAverage: item.reviewAverage,

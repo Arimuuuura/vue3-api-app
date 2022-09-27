@@ -1,10 +1,7 @@
 <template>
   <div class="favorite-bookmark">
     <div  class="favorite-bookmark__cards">
-      <a v-for="item of favoriteItems" class="favorite-bookmark__card" :key="item.id" @click="onClickDetail(item.bookmarkId)">
-        <img :src="item.mediumImageUrl" alt="">
-        <p>{{item.itemName}}</p>
-      </a>
+      <ProductCard v-for="item of favoriteItems" :key="item.id" :item="item" @onClickDetail="onClickDetail(item.bookmarkId)" />
     </div>
   </div>
 </template>
@@ -14,8 +11,12 @@ import { computed, defineComponent, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import {getCode} from "@/authorization";
+import ProductCard from '@/view/views/components/ProductCard.vue';
 
 export default defineComponent({
+  components: {
+		ProductCard
+	},
   setup() {
     const store = useStore()
     const router = useRouter()
@@ -44,7 +45,8 @@ export default defineComponent({
 
     return {
       favoriteItems,
-      onClickDetail
+      onClickDetail,
+      ProductCard
     }
   },
 })

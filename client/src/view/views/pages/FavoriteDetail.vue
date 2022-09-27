@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="favorite-detail__card">
-			<img :src="favoriteItem.mediumImageUrl" alt="">
+			<img :src="favoriteItem.imageUrl" alt="">
 			<div>
 				<h3 class="favorite-detail__card-title">{{favoriteItem.itemName}}</h3>
 				<dl class="favorite-detail__card-body">
