@@ -28,6 +28,8 @@ $ cp .env.sample .env
 
 2. Update the created .env file with the information obtained.
 
+3. `$ npm run dev`
+
 # Note
 
 I don't test environments under Windows.
