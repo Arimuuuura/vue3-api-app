@@ -11,10 +11,6 @@ Node.js + Express
 Rakuten Developers
 ```
 
-# DEMO
-
-![]()
-
 # Installation
 
 Install Vue App with command.
