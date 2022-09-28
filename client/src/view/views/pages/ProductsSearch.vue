@@ -20,7 +20,7 @@
 import {computed, defineComponent, ref, onMounted} from 'vue'
 import {useStore} from 'vuex'
 import {useRouter} from 'vue-router'
-import {getCode} from '@/authorization'
+import {getValueByQueryParameter} from '@/authorization'
 import InputForm from '@/view/views/components/InputForm.vue'
 import ProductCard from '@/view/views/components/ProductCard.vue'
 
@@ -45,7 +45,7 @@ export default defineComponent({
     })
 
     onMounted(() => {
-      const updateCode = getCode()
+      const updateCode = getValueByQueryParameter('code')
       store.dispatch('AuthorizationCodeState/setUpdateCode', updateCode)
     })
 

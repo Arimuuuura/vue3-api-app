@@ -8,7 +8,7 @@
 import {computed, defineComponent, onMounted, ref, watch} from 'vue'
 import {useRouter} from 'vue-router'
 import {useStore} from 'vuex'
-import {getCode, getBookmarkId} from '@/authorization'
+import {getValueByQueryParameter} from '@/authorization'
 
 export default defineComponent({
   setup() {
@@ -17,8 +17,8 @@ export default defineComponent({
     const message = ref('登録解除処理中...')
 
     onMounted(() => {
-      const updateCode = getCode()
-      const bookmarkId = getBookmarkId()
+      const updateCode = getValueByQueryParameter('code')
+      const bookmarkId = getValueByQueryParameter('bookmarkId')
       // updateCode が存在していたら削除
       if (updateCode) {
         store.dispatch('AuthorizationCodeState/setUpdateCode', updateCode)

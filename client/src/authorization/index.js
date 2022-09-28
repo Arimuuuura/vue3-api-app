@@ -1,37 +1,18 @@
-const getCode = (name = '') => {
+const getValueByQueryParameter = (paramKey, name) => {
   const param = name || location.search
   const nextStringNumber = 1
   const notExist = -1
 
   if (param.indexOf('&') === notExist) {
-    if (param.indexOf('code') === notExist) return
+    if (param.indexOf(paramKey) === notExist) return
 
     return param.substring(param.indexOf('=') + nextStringNumber)
   } else {
     const codeParam = param
       .split('&')
-      .find((b) => b.indexOf('code') != notExist)
+      .find((parameter) => parameter.indexOf(paramKey) != notExist)
     return codeParam.substring(codeParam.indexOf('=') + nextStringNumber)
   }
 }
 
-const getBookmarkId = () => {
-  const param = location.search
-  const nextStringNumber = 1
-  const notExist = -1
-
-  if (param.indexOf('&') === notExist) {
-    if (param.indexOf('bookmarkId') === notExist) return
-
-    return param.substring(param.indexOf('=') + nextStringNumber)
-  } else {
-    const bookmarkIdParam = param
-      .split('&')
-      .find((b) => b.indexOf('bookmarkId') != notExist)
-    return bookmarkIdParam.substring(
-      bookmarkIdParam.indexOf('=') + nextStringNumber
-    )
-  }
-}
-
-export {getCode, getBookmarkId}
+export {getValueByQueryParameter}

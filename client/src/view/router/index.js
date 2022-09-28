@@ -10,8 +10,11 @@ import Favorite from '../views/pages/FavoriteView.vue'
 import FavoriteDetail from '../views/pages/FavoriteDetail.vue'
 import CushionDeleteFavorite from '../views/cushion/CushionDeleteFavorite.vue'
 import TestView from '../views/pages/TestApiView.vue'
+import {getValueByQueryParameter} from '@/authorization'
 
-import {getCode} from '@/authorization'
+const APP_URL = process.env.VUE_APP_URL
+const GET_CODE_URL = process.env.VUE_APP_AUTHORIZE_URL
+const CLIENT_ID = process.env.VUE_APP_APP_ID
 
 const routes = [
   {
@@ -77,13 +80,12 @@ const router = createRouter({
 })
 
 const makeTargetHref = (scope, encodedRedirectUri) => {
-  return `https://app.rakuten.co.jp/services/authorize?client_id=1024937239498592249&response_type=code&scope=${scope}&redirect_uri=${encodedRedirectUri}`
+  return `${GET_CODE_URL}?client_id=${CLIENT_ID}&response_type=code&scope=${scope}&redirect_uri=${encodedRedirectUri}`
 }
 
 // ナビゲーションガード
 router.beforeEach(async (to, from, next) => {
-  const code = getCode(to.fullPath)
-  let bookmarkId = ''
+  const code = getValueByQueryParameter('code', to.fullPath)
 
   // 商品検索画面
   if (to.name == 'productsSearch') {
@@ -95,11 +97,10 @@ router.beforeEach(async (to, from, next) => {
       next()
       return
     }
-    const REDIRECT_URL = 'http://localhost:8080/products-search'
-    const encodedRedirectUri = encodeURI(REDIRECT_URL)
+    const REDIRECT_URL = `${APP_URL}/products-search`
     const targetHref = makeTargetHref(
       'rakuten_favoritebookmark_update',
-      encodedRedirectUri
+      encodeURI(REDIRECT_URL)
     )
 
     window.location = targetHref
@@ -109,14 +110,6 @@ router.beforeEach(async (to, from, next) => {
   // お気に入り画面
   if (to.name == 'favorite') {
     if (code) {
-      // if(from.name == 'deleteFavorite') {
-      //   const REDIRECT_URL = 'http://localhost:8080/favorite'
-      //   const encodedRedirectUri = encodeURI(REDIRECT_URL);
-      //   const targetHref = makeTargetHref('rakuten_favoritebookmark_read', encodedRedirectUri)
-
-      //   window.location = targetHref
-      // }
-
       next()
       return
     }
@@ -124,11 +117,10 @@ router.beforeEach(async (to, from, next) => {
       next()
       return
     }
-    const REDIRECT_URL = 'http://localhost:8080/favorite'
-    const encodedRedirectUri = encodeURI(REDIRECT_URL)
+    const REDIRECT_URL = `${APP_URL}/favorite`
     const targetHref = makeTargetHref(
       'rakuten_favoritebookmark_read',
-      encodedRedirectUri
+      encodeURI(REDIRECT_URL)
     )
 
     window.location = targetHref
@@ -141,12 +133,11 @@ router.beforeEach(async (to, from, next) => {
       next()
       return
     }
-    bookmarkId = from.query.bookmarkId
-    const REDIRECT_URL = `http://localhost:8080/delete-favorite?bookmarkId=${bookmarkId}`
-    const encodedRedirectUri = encodeURI(REDIRECT_URL)
+    const bookmarkId = from.query.bookmarkId
+    const REDIRECT_URL = `${APP_URL}/delete-favorite?bookmarkId=${bookmarkId}`
     const targetHref = makeTargetHref(
       'rakuten_favoritebookmark_update',
-      encodedRedirectUri
+      encodeURI(REDIRECT_URL)
     )
 
     window.location = targetHref

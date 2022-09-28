@@ -15,7 +15,7 @@
 import {computed, defineComponent, onMounted} from 'vue'
 import {useRouter} from 'vue-router'
 import {useStore} from 'vuex'
-import {getCode} from '@/authorization'
+import {getValueByQueryParameter} from '@/authorization'
 import ProductCard from '@/view/views/components/ProductCard.vue'
 
 export default defineComponent({
@@ -37,7 +37,7 @@ export default defineComponent({
     })
 
     onMounted(() => {
-      const readCode = getCode()
+      const readCode = getValueByQueryParameter('code')
       store.dispatch('AuthorizationCodeState/setReadCode', readCode)
       if (!readCode) return
       store.dispatch('FavoriteState/fetch', {readCode})
