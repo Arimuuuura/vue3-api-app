@@ -1,0 +1,6 @@
+{
+	"eslint.format.enable": false,
+	"cSpell.words": [
+		"axios"
+	]
+}
